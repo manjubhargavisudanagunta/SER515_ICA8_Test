@@ -26,4 +26,13 @@ class urinalsTest {
         assertEquals(-1,obj.Counturinals("011"));
         assertEquals(0,obj.Counturinals("1"));
     }
+
+    @Test
+    void fileRead() {
+
+    }
+
+    @Test
+    void fileWrite() {
+    }
 }

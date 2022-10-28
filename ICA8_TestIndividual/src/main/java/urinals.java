@@ -1,19 +1,18 @@
 /*
 Author : Manju Bhargavi
  */
+import java.io.*;
 import java.util.Scanner;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+
 public class urinals {
     public int goodstring(String in) {
         String[] input = in.split("");
+
         int temp = 0;
         int Value = 0;
         for (int i = 0; i < input.length - 1; i++) {
-
             int initial_posi = Integer.parseInt(String.valueOf(input[i]));
-            int Next_pos = Integer.parseInt(String.valueOf(input[i + 1]));
+            int Next_pos = Integer.parseInt(String.valueOf(input[i+1]));
             if (initial_posi == 1 && Next_pos == 1) {
                 temp += 1;
                 System.out.println("Invalid");
@@ -21,6 +20,7 @@ public class urinals {
             }
 
         }
+        System.out.println(temp);
         if (temp == 1) {
             System.out.println("String is not valid");
             Value = 0;
@@ -29,12 +29,14 @@ public class urinals {
             System.out.println("String is valid");
             Value = 1;
         }
+        System.out.println(Value);
         return Value;
     }
     public int Counturinals(String count){
         urinals obj = new urinals();
 
         int Value = obj.goodstring(count);
+        System.out.println(Value);
         if (Value == 0){
             return -1;
         }
@@ -73,34 +75,79 @@ public class urinals {
         return temp1;
 
     }
-    public String FileRead() throws IOException {
-        String input = null;
-        String filepath;
-        File file = new File(filepath = "src/output.dat"); // For example, foo.txt
-        FileReader reader = null;
-        try {
-            reader = new FileReader(file);
-            char[] chars = new char[(int) file.length()];
-            reader.read(chars);
-            input = new String(chars);
-            System.out.println(file);
-            System.out.println(reader);
-            //System.out.println(input);
-            reader.close();
-        } catch (IOException e) {
-            throw new IOException("error in reading the file");
-        } finally {
-            if(reader != null){
-                reader.close();
-            }
-        }
-        return input;
-    }
-    public void WriteFile(){
+    public void FileRead(String filepath) {
+        try{
 
+            urinals object=new urinals();
+            //Read from input file
+            File file=new File(filepath);
+            if(file==null)
+                throw new IOException();
+
+            //opening file to get the counter
+            File rfile=new File("src/counter.txt");
+            if(rfile==null)
+                throw new IOException();
+            Scanner cout=new Scanner(rfile);
+            int counter=Integer.parseInt(cout.next());
+
+            //getting the output file
+            String Output="src/rule.txt";
+            if(counter!=0)
+                Output="src/rule"+counter+".txt";
+
+
+            //reading input file
+            Scanner sin=new Scanner(file);
+            while(sin.hasNextLine()){
+                String str=sin.nextLine();
+                if(str.equals("-1"))
+                    break;
+
+                int vacant=object.Counturinals(str);
+                object.FileWrite(Output,vacant);
+
+            }
+
+            //increment the counter for next output file
+            FileWriter wfile=new FileWriter("src/counter.txt");
+            if(wfile==null)
+                throw new IOException();
+            wfile.write(Integer.toString(counter+1));
+            wfile.close();
+
+            System.out.println("Successfully written output to "+Output);
+        }
+        catch(IOException e)
+        {
+            System.out.println("Error in file reading");
+
+            e.printStackTrace();
+
+        }
+
+    }
+    public void FileWrite(String Output,int vacant){
+        try {
+            FileWriter filewr = new FileWriter(Output, true);
+            if(filewr==null)
+                throw new IOException();
+            BufferedWriter bw=new BufferedWriter(filewr);
+            if(bw==null)
+                throw new IOException();
+
+            bw.write(Integer.toString(vacant));
+            bw.newLine();
+            bw.close();
+        }
+        catch(IOException e){
+            System.out.println("Error in opening output file");
+            e.printStackTrace();
+        }
     }
     public static void main(String[] args) throws IOException {
         int choice = 0;
+        urinals object = new urinals();
         Scanner ch = new Scanner(System.in);
         System.out.println("Enter your choice: ");
         System.out.println("1. For Keyboard");
@@ -115,11 +162,14 @@ public class urinals {
                 System.out.println(u.goodstring(input));
                 break;
             case 2:
+                System.out.println("File Reading");
                 urinals rfile = new urinals(); //file reading
-                String fread = rfile.FileRead();
-                System.out.println(fread);
+                rfile.FileRead("src/urinals.dat");
+
 
 
         }
+
     }
 }
+
