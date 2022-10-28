@@ -73,14 +73,24 @@ public class urinals {
 
     }
 
-    public static void main(String[] args){
-        Scanner str = new Scanner(System.in);
-        System.out.println("Enter the number between 1 and 0: ");
-        String input = str.next();
-        urinals u=new urinals();
-        System.out.println(u.goodstring(input));
+    public static void main(String[] args) {
+        int choice = 0;
+        Scanner ch = new Scanner(System.in);
+        System.out.println("Enter your choice: ");
+        System.out.println("1. For Keyboard");
+        System.out.println("2. For file");
+        choice = ch.nextInt();
+        switch (choice) {
+            case 1:
+                Scanner str = new Scanner(System.in);
+                System.out.println("Enter the number between 1 and 0: ");
+                String input = str.next();
+                urinals u = new urinals();
+                System.out.println(u.goodstring(input));
+                break;
+            case 2:
+                break;
+
+        }
     }
-
-
-
 }
