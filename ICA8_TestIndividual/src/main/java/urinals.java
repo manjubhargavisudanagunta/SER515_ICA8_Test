@@ -7,18 +7,19 @@ import java.util.Scanner;
 public class urinals {
     public int goodstring(String in) {
         String[] input = in.split("");
-
-        int temp = 0;
-        int Value = 0;
-        for (int i = 0; i < input.length - 1; i++) {
-            int initial_posi = Integer.parseInt(String.valueOf(input[i]));
-            int Next_pos = Integer.parseInt(String.valueOf(input[i+1]));
-            if (initial_posi == 1 && Next_pos == 1) {
-                temp += 1;
-                System.out.println("Invalid");
-                break;
+        if(input.matches"^[10]+$"){
+            int temp = 0;
+            int Value = 0;
+            for (int i = 0; i < input.length - 1; i++) {
+                int initial_posi = Integer.parseInt(String.valueOf(input[i]));
+                int Next_pos = Integer.parseInt(String.valueOf(input[i + 1]));
+                if (initial_posi == 1 && Next_pos == 1) {
+                    temp += 1;
+                    System.out.println("Invalid");
+                    break;
+                }
+            System.out.println("invalid format");
             }
-
         }
         System.out.println(temp);
         if (temp == 1) {
@@ -62,13 +63,13 @@ public class urinals {
             }
             for(i=1;i<len-1;i++){
                 if(str[i]==1 && str[i-1]!=0 && str[i+1]!=0){
-                    str[i] = 1;
+                    str[i] = 0;
                     temp1++;
                 }
             }
             while(str[i] == 1 && str[i-1]!= 0){
                 temp1++;
-                str[i] =1;
+                str[i] =0;
             }
         }
         System.out.println(temp1);
