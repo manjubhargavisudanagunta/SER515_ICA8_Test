@@ -24,5 +24,6 @@ class urinalsTest {
         assertEquals(-1,obj.Counturinals("11001"));
         assertEquals(0,obj.Counturinals("0100"));
         assertEquals(-1,obj.Counturinals("011"));
+        assertEquals(0,obj.Counturinals("1"));
     }
 }

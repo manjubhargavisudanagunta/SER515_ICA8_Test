@@ -2,8 +2,9 @@
 Author : Manju Bhargavi
  */
 import java.util.Scanner;
-
-
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 public class urinals {
     public int goodstring(String in) {
         String[] input = in.split("");
@@ -72,8 +73,33 @@ public class urinals {
         return temp1;
 
     }
+    public String FileRead() throws IOException {
+        String input = null;
+        String filepath;
+        File file = new File(filepath = "src/output.dat"); // For example, foo.txt
+        FileReader reader = null;
+        try {
+            reader = new FileReader(file);
+            char[] chars = new char[(int) file.length()];
+            reader.read(chars);
+            input = new String(chars);
+            System.out.println(file);
+            System.out.println(reader);
+            //System.out.println(input);
+            reader.close();
+        } catch (IOException e) {
+            throw new IOException("error in reading the file");
+        } finally {
+            if(reader != null){
+                reader.close();
+            }
+        }
+        return input;
+    }
+    public void WriteFile(){
 
-    public static void main(String[] args) {
+    }
+    public static void main(String[] args) throws IOException {
         int choice = 0;
         Scanner ch = new Scanner(System.in);
         System.out.println("Enter your choice: ");
@@ -89,7 +115,10 @@ public class urinals {
                 System.out.println(u.goodstring(input));
                 break;
             case 2:
-                break;
+                urinals rfile = new urinals(); //file reading
+                String fread = rfile.FileRead();
+                System.out.println(fread);
+
 
         }
     }
